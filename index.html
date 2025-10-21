@@ -1,0 +1,109 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Embedder</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: #0d1117;
+      color: white;
+    }
+
+    header {
+      background: #161b22;
+      padding: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+
+    input[type="url"] {
+      width: 60%;
+      max-width: 500px;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #238636;
+      border: none;
+      color: white;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #2ea043;
+    }
+
+    iframe {
+      flex-grow: 1;
+      width: 100%;
+      border: none;
+    }
+
+    .placeholder {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: 1.2rem;
+      text-align: center;
+      padding: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <input id="urlInput" type="url" placeholder="Enter a website URL (e.g., https://example.com)" />
+    <button onclick="loadSite()">Embed</button>
+  </header>
+
+  <div id="content" class="placeholder">
+    Enter a website above to embed it here.
+  </div>
+
+  <script>
+    function loadSite() {
+      const input = document.getElementById('urlInput');
+      let url = input.value.trim();
+
+      if (!url) {
+        alert("Please enter a URL.");
+        return;
+      }
+
+      // Add https:// if missing
+      if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url;
+      }
+
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+
+      const content = document.getElementById('content');
+      content.innerHTML = '';
+      content.appendChild(iframe);
+    }
+  </script>
+</body>
+</html>
